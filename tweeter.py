@@ -32,6 +32,11 @@ api_v2 = tweepy.Client(bearer_token=bearer_token,
 query_strings_ = query_strings.query_strings
 tweet_strings_ = tweet_strings.tweet_strings
 
-data_string = scraper.get_data(random.choice(query_strings_))
-tweet_text = str(random.choice(tweet_strings_) + "\n" + data_string)
-# api_v2.create_tweet(text=tweet_text)
+# pick three random queries
+for i in range(3):
+    choice_ind = random.randint(0, len(query_strings_) - 1)
+    choice_ind = 2
+    data_string = scraper.get_data(query_strings_[choice_ind])
+    tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_ind] + "\n\n" + data_string)
+    print(tweet_text)
+    api_v2.create_tweet(text=tweet_text)

@@ -13,9 +13,9 @@ top_k: top k players of result
 Returns:
 dataframe of top k player stats of query
 '''
-def get_data(query_params, top_k=5): 
+def get_data(query_params, top_k=5):
     res = requests.get("https://baseballsavant.mlb.com/statcast_search", query_params)
-    print(res.url)
+    print("Request URL: ", res.url, "\nStatus: ", res.status_code)
     soup = BeautifulSoup(res.text, 'lxml')
 
     search_results_table = soup.find('table', id='search_results')
@@ -41,9 +41,17 @@ def get_data(query_params, top_k=5):
         player_data = [item.text.strip() for item in row_items][:-1]
         player_data[1] = player_img_url
         results.loc[len(results)] = player_data
-    
-    results[results.columns[-1]] = results[results.columns[-1]].astype(float)
-    results = results.sort_values(results.columns[-1], 0, ascending=False)[0:top_k]
-    tweet_string = results.to_string(columns=["Player", results.columns[-1]], index=False, header=False)
+        
+    if query_params['player_type'] == 'pitcher': # pitcher columns behave differently
+        results['Pitches'] = results['Pitches'].astype(float)
+        results = results.sort_values('Pitches', 0, ascending=False)[0:top_k]
+    else:  
+        results[results.columns[-1]] = results[results.columns[-1]].astype(float)
+        results = results.sort_values(results.columns[-1], 0, ascending=False)[0:top_k]
+        
+    if query_params['player_type'] == 'pitcher':
+        tweet_string = results.to_string(columns=["Player", "Pitches"], index=False, header=False)
+    else:  
+        tweet_string = results.to_string(columns=["Player", results.columns[-1]], index=False, header=False)
 
     return tweet_string

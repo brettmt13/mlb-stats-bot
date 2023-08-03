@@ -1,5 +1,6 @@
-STRING_BIP = "Top 5 players of the night with the most balls in play:"
-STRING_BBDIST = "The top 5 longest hits of the night:"
-
+STRING_BIP = "Who made the most contact? Here are the top 5 batters with the most batted ball events on the night:"
+STRING_BBDIST = "Who hit the farthest? Here are the top 5 batters with the longest hits of the night:"
+STRING_STRIKES = "Top 5 pitchers with the most strikes on the night:"
 tweet_strings = [STRING_BIP,
-                 STRING_BBDIST]
+                 STRING_BBDIST,
+                 STRING_STRIKES]
