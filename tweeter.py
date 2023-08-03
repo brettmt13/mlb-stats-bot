@@ -5,6 +5,11 @@ import scraper
 import random
 # import image_gen
 
+def pick_three():
+    random.shuffle(all_inds)
+    choice_inds = all_inds[:3]
+    return choice_inds
+
 access_token = "1686518036314898432-jUwmpVkqLiQOjFdIYEdcpN5mtW2cVr"
 access_token_secret = "rS3EX7fbwsVtcATPcS9ckpGAi29m47TuyFdzw9QbAsiih"
 consumer_key = "Ty4a1OkGA9sx9Lgl4NKjfMnuq"
@@ -31,12 +36,11 @@ api_v2 = tweepy.Client(bearer_token=bearer_token,
 
 query_strings_ = query_strings.query_strings
 tweet_strings_ = tweet_strings.tweet_strings
+all_inds = list(range(len(query_strings_)))
+choice_inds = pick_three()
 
-# pick three random queries
 for i in range(3):
-    choice_ind = random.randint(0, len(query_strings_) - 1)
-    choice_ind = 2
-    data_string = scraper.get_data(query_strings_[choice_ind])
-    tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_ind] + "\n\n" + data_string)
+    data_string = scraper.get_data(query_strings_[choice_inds[i]])
+    tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_inds[i]] + "\n\n" + data_string)
     print(tweet_text)
     api_v2.create_tweet(text=tweet_text)
