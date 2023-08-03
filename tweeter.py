@@ -1,4 +1,9 @@
 import tweepy
+import tweet_strings
+import query_strings
+import scraper
+import random
+# import image_gen
 
 access_token = "1686518036314898432-jUwmpVkqLiQOjFdIYEdcpN5mtW2cVr"
 access_token_secret = "rS3EX7fbwsVtcATPcS9ckpGAi29m47TuyFdzw9QbAsiih"
@@ -13,9 +18,9 @@ bearer_token = bytes(bearer_token, "utf-8").decode("unicode-escape")
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-# for media
+# for media (future release)
 api_v1 = tweepy.API(auth)
-media_upload = api_v1.media_upload(filename="./image.jpg")
+# media_upload = api_v1.media_upload(filename="./image.jpg")
 
 # for text
 api_v2 = tweepy.Client(bearer_token=bearer_token,
@@ -24,4 +29,9 @@ api_v2 = tweepy.Client(bearer_token=bearer_token,
                     consumer_key=consumer_key,
                     consumer_secret=consumer_secret)
 
-api_v2.create_tweet(text='Hi', media_ids=[media_upload.media_id])
+query_strings_ = query_strings.query_strings
+tweet_strings_ = tweet_strings.tweet_strings
+
+data_string = scraper.get_data(random.choice(query_strings_))
+tweet_text = str(random.choice(tweet_strings_) + "\n" + data_string)
+# api_v2.create_tweet(text=tweet_text)

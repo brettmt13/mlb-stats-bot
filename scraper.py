@@ -1,7 +1,7 @@
 import requests
-import urllib.parse
 from bs4 import BeautifulSoup
 import pandas as pd
+import query_strings
 
 '''
 Returns the scraped search results
@@ -15,6 +15,7 @@ dataframe of top k player stats of query
 '''
 def get_data(query_params, top_k=5): 
     res = requests.get("https://baseballsavant.mlb.com/statcast_search", query_params)
+    print(res.url)
     soup = BeautifulSoup(res.text, 'lxml')
 
     search_results_table = soup.find('table', id='search_results')
@@ -40,5 +41,9 @@ def get_data(query_params, top_k=5):
         player_data = [item.text.strip() for item in row_items][:-1]
         player_data[1] = player_img_url
         results.loc[len(results)] = player_data
+    
+    results[results.columns[-1]] = results[results.columns[-1]].astype(float)
+    results = results.sort_values(results.columns[-1], 0, ascending=False)[0:top_k]
+    tweet_string = results.to_string(columns=["Player", results.columns[-1]], index=False, header=False)
 
-    return results.sort_values("BIP", 0, ascending=False)[0:top_k]
+    return tweet_string
