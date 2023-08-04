@@ -6,7 +6,7 @@ By Brett ([@brett22t](https://twitter.com/brett22t) on Twitter)
 This bot, each night after all MLB games finish, picks three random MLB stats, including StatCast, and tweets the top 5 leaders of the night of each stat.
 
 An example:
-![Tweet Example](example_tweet.jpg)
+![Tweet Example](/images/example_tweet.jpg)
 
 Currently in version 0.0.1
 - About 10 different queries
