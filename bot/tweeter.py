@@ -12,7 +12,7 @@ def pick_three():
     choice_inds = all_inds[:3]
     return choice_inds
 
-with open('config.yml', 'r') as config_file:
+with open('../config.yml', 'r') as config_file:
     config = yaml.safe_load(config_file)
 
 consumer_key = config['twitter']['consumer_key']
