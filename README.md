@@ -1,5 +1,6 @@
 # MLB Stats Twitter Bot
 ### A twitter bot that pulls random MLB statistics for a single night of games, every night.
+[https://twitter.com/mlbstats_bot](https://twitter.com/mlbstats_bot)
 By Brett ([@brett22t](https://twitter.com/brett22t) on Twitter)
 
 ## What it does:
