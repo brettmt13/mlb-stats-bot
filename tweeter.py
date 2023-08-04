@@ -43,6 +43,8 @@ choice_inds = pick_three()
 
 for i in range(3):
     data_string = scraper.get_data(query_strings_[choice_inds[i]])
+    data_string = data_string.rstrip()
+    print(data_string)
     tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_inds[i]] + "\n\n" + data_string)
     print(tweet_text)
     api_v2.create_tweet(text=tweet_text)
