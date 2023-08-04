@@ -43,14 +43,14 @@ def get_data(query_params, top_k=5):
         results.loc[len(results)] = player_data
         
     if query_params['player_type'] == 'pitcher': # pitcher columns behave differently
-        results['Pitches'] = results['Pitches'].astype(float)
-        results = results.sort_values('Pitches', 0, ascending=False)[0:top_k]
+        results['Total'] = results['Total'].astype(float)
+        results = results.sort_values('Total', 0, ascending=False)[0:top_k]
     else:  
         results[results.columns[-1]] = results[results.columns[-1]].astype(float)
         results = results.sort_values(results.columns[-1], 0, ascending=False)[0:top_k]
         
     if query_params['player_type'] == 'pitcher':
-        tweet_string = results.to_string(columns=["Player", "Pitches"], index=False, header=False)
+        tweet_string = results.to_string(columns=["Player", "Total"], index=False, header=False)
     else:  
         tweet_string = results.to_string(columns=["Player", results.columns[-1]], index=False, header=False)
 
