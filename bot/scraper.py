@@ -56,4 +56,6 @@ def get_data(query_params, top_k=5):
     else:  
         tweet_string = results.to_string(columns=["Player", results.columns[-1]], index=False, header=False)
 
-    return tweet_string
+    image_data = results.to_string(columns=["Player", "Player Image URL"], index=False, header=False)
+    
+    return tweet_string, image_data
