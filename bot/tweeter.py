@@ -45,7 +45,8 @@ for i in range(3):
     try:
         data_string = scraper.get_data(query_strings_[choice_inds[i]])
     except AttributeError:
-        raise AttributeError("Data not yet available. Try again soon.")
+        print("Data not yet available for parsing. Try again soon.")
+        exit(1)
     data_string = data_string.rstrip()
     print(data_string)
     tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_inds[i]] + "\n\n" + data_string)
