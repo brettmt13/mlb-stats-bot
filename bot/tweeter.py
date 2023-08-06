@@ -46,21 +46,16 @@ choice_inds = pick_three()
 def gen_tweet_with_text():
     for i in range(1):
         try:
-            player_images_data = scraper.get_data_image(query_strings_[choice_inds[i]])
+            data_string = scraper.get_data_string(query_strings_[choice_inds[i]])
         except AttributeError:
             print("Data not yet available for parsing. Try again soon.")
             exit(1)
         data_string = data_string.rstrip()
         data_string = data_string.lstrip()
-        player_images_URL = player_images_data["Player Image URL"]
-        player_names = player_images_data["Player"]
-        # print(data_string)
         tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_inds[i]] + "\n\n" + data_string)
-        # print(tweet_text)
-        # api_v2.create_tweet(text=tweet_text)
-        print()
+        api_v2.create_tweet(text=tweet_text)
         
-def gen_tweet_only_image():
+def gen_tweet_with_image():
     for i in range(1):
         try:
             player_images_data = scraper.get_data_image(query_strings_[choice_inds[i]])
@@ -69,9 +64,6 @@ def gen_tweet_only_image():
             exit(1)
         player_images_URL = player_images_data["Player Image URL"].to_numpy()
         player_names = player_images_data["Player"].to_numpy()
-        print("Checking player names and URL separate...:\n")
-        print(player_images_URL)
-        print(player_names)
         tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_inds[i]] + "\n\n")
         image_gen.generate_image(player_images_URL, player_names)
         media_upload = api_v1.media_upload(filename="twit_img.jpg")
@@ -83,4 +75,4 @@ def gen_tweet_only_image():
     os.remove('twit_img.jpg')
         
 if __name__ == "__main__":
-    gen_tweet_only_image()
+    gen_tweet_with_image()
