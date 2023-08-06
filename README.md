@@ -9,10 +9,11 @@ This bot, each night after all MLB games finish, picks three random MLB stats, i
 An example:
 ![Tweet Example](/images/example_tweet.jpg)
 
-Currently in version 0.0.1
-- About 10 different queries
+Currently in version 0.0.2
 - Only text
 - Singular statistics
+- Top 5 players only
+- Image generation
 
 Contact [@brett22t](https://twitter.com/brett22t) on Twitter for any questions.
 
