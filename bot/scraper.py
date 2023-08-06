@@ -47,17 +47,19 @@ def get_data_image(query_params, top_k=5):
         results = results[results['Total'] != '']
         results['Total'] = results['Total'].astype(float)
         results = results.sort_values('Total', 0, ascending=False)[0:top_k]
+        stat = results['Total'].values
     else:  
         results = results[results[results.columns[-1]] != '']
         results[results.columns[-1]] = results[results.columns[-1]].astype(float)
         results = results.sort_values(results.columns[-1], 0, ascending=False)[0:top_k]
-
+        stat = results[results.columns[-1]].values
     image_data = results.loc[:,["Player", "Player Image URL"]]
     
-    print("finished grabbing image data...:\n")
-    print(image_data)
     
-    return image_data
+    print("finished grabbing stat data...:\n")
+    print(stat)
+    
+    return image_data, stat
 
 
 

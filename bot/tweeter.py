@@ -56,23 +56,24 @@ def gen_tweet_with_text():
         api_v2.create_tweet(text=tweet_text)
         
 def gen_tweet_with_image():
-    for i in range(1):
+    for i in range(3):
         try:
-            player_images_data = scraper.get_data_image(query_strings_[choice_inds[i]])
+            player_images_data, stat = scraper.get_data_image(query_strings_[choice_inds[i]])
         except AttributeError:
             print("Data not yet available for parsing. Try again soon.")
             exit(1)
         player_images_URL = player_images_data["Player Image URL"].to_numpy()
         player_names = player_images_data["Player"].to_numpy()
         tweet_text = str(query_strings.game_dt + "\n\n" + tweet_strings_[choice_inds[i]] + "\n\n")
-        image_gen.generate_image(player_images_URL, player_names)
+        image_gen.generate_image(player_images_URL, player_names, stat)
         media_upload = api_v1.media_upload(filename="twit_img.jpg")
         api_v2.create_tweet(text=tweet_text, media_ids=[media_upload.media_id])
 
-    # clear images
-    for i in range(5):
-        os.remove(f'player_image{i}.png')
-    os.remove('twit_img.jpg')
-        
+        # clear images
+        print("removing images")
+        for i in range(5):
+            os.remove(f'player_image{i}.png')
+        os.remove('twit_img.jpg')
+            
 if __name__ == "__main__":
     gen_tweet_with_image()
